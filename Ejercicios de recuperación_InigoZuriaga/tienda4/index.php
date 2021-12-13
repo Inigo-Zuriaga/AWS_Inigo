@@ -3,7 +3,6 @@ session_start();
 
 
 if (isset($_GET['Enviar'])) {
-
 $titulocarr = filter_input(INPUT_GET, 'Título', FILTER_SANITIZE_STRING);
 $variedadcarr = filter_input(INPUT_GET, 'Vari', FILTER_SANITIZE_STRING);
 $preciocarr = filter_input(INPUT_GET, 'Prec', FILTER_SANITIZE_STRING);
