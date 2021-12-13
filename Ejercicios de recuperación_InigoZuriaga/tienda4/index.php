@@ -1,31 +1,59 @@
-<?php
-session_start();
+    <?php
+    session_start();
 
 
-if (isset($_GET['Enviar'])) {
-$titulocarr = filter_input(INPUT_GET, 'Título', FILTER_SANITIZE_STRING);
-$variedadcarr = filter_input(INPUT_GET, 'Vari', FILTER_SANITIZE_STRING);
-$preciocarr = filter_input(INPUT_GET, 'Prec', FILTER_SANITIZE_STRING);
 
-$cantidad = filter_input(INPUT_GET, 'Cantidad', FILTER_SANITIZE_STRING);
+    if (isset($_GET['Enviar'])) {
+        $titulocarr = filter_input(INPUT_GET, 'Título', FILTER_SANITIZE_STRING);
+        $variedadcarr = filter_input(INPUT_GET, 'Vari', FILTER_SANITIZE_STRING);
+        $preciocarr = filter_input(INPUT_GET, 'Prec', FILTER_SANITIZE_STRING);
 
-for($i=0; $i<$cantidad;$i++){
-array_push($_SESSION['carrito'],
+        $fecha = $titulocarr ."_". date('ljS\ofFYh:i:sA');
 
-    [
-        'Título' => $titulocarr,
-        'Variedad' => $variedadcarr,
-        'Precio' => $preciocarr,
-    ]);
+        array_push($_SESSION['product'],$titulocarr );
+        print_r($_SESSION['product']);
+
+        //setcookie($fecha, $titulocarr);
+        setcookie($titulocarr, $titulocarr, time() + 3600);  //1h
+        //print_r($_COOKIE);
+
+
+        $cantidad = filter_input(INPUT_GET, 'Cantidad', FILTER_SANITIZE_STRING);
+
+        for ($i = 0; $i < $cantidad; $i++) {
+            array_push($_SESSION['carrito'],
+
+                [
+                    'Título' => $titulocarr,
+                    'Variedad' => $variedadcarr,
+                    'Precio' => $preciocarr,
+                ]);
+
+        }
+    }
+    if (isset($_GET['Vaciar'])) {
+
+            foreach ($_SESSION['product'] as $row) {
+                echo $row;
+                setcookie($row, "", -1);
+            }
+            session_destroy();
+            header("Location:index.php");
+            session_start();
 
     }
-}
     //REINICIO LA SESION
     if (isset($_GET['action']) && $_GET['action'] == "Reiniciar") {
-    session_destroy();
-    session_start();
-    }
 
+        foreach ($_SESSION['product'] as $row) {
+            echo $row;
+            setcookie($row, "", -1);
+        }
+        session_destroy();
+        header("Location:index.php");
+        session_start();
+
+    }
 
     ?>
     <!doctype html>
@@ -47,6 +75,7 @@ array_push($_SESSION['carrito'],
 
 
         <!--AQUI REINICIO LA SESION CON EL BOTON-->
+        <form action="index.php" method="get">
         <p>
             <a href="index.php?action=Reiniciar" title="Reiniciar">
                 Vaciar carrito
@@ -57,7 +86,10 @@ array_push($_SESSION['carrito'],
                           d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
             </a>
-        </p><br>
+        </p>
+        <input type="submit" name="Vaciar"  value="Vaciar carrito"/>
+        </form>
+        <br>
         <p>
             <a href="tienda.php">
                 Volver a la tienda

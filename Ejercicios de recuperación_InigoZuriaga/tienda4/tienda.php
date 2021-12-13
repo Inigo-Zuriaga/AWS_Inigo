@@ -7,9 +7,12 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['personajes1'])) {
+
+
+    if (!isset($_SESSION['productos'])) {
         $_SESSION['carrito'] = [];
-        $_SESSION['personajes1'] = [
+        $_SESSION['product']=[];
+        $_SESSION['productos'] = [
             [
                 'Título' => "Pimiento",
                 'Variedad' => "Verdura",
@@ -64,6 +67,7 @@
 
         ];
     }
+
     ?>
 <!doctype html>
 <html lang="es">
@@ -102,7 +106,7 @@
 
     <?php
 
-    foreach ($_SESSION['personajes1'] as $key => $row) {
+    foreach ($_SESSION['productos'] as $key => $row) {
         ?>
 
 
