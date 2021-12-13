@@ -4,7 +4,7 @@
 require_once "conexion.php";
 ?>
 <h1>Tabla personas</h1>
-<table border="1" >
+<table border="2" >
     <tr>
         <td>id</td>
         <td>nombre</td>

@@ -1,0 +1,46 @@
+
+body{
+    max-width: 100%;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+ul li{
+    display: inline-block;
+    width: 15%;
+    text-align: center;
+}
+ul li:hover{
+    cursor: pointer;
+    color:grey;
+
+}
+ul.cabecera li{
+    font-weight: bold;
+}
+img{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 50%;
+    margin-top: 4px;
+}
+h1{
+    text-align: center;
+    padding-bottom: 40px;
+    padding-top: 10px;
+    color: white;
+}
+a{
+    padding-left:10px;
+    color: #727272;
+    text-decoration: none;
+}
+a:hover{
+    color: aqua;
+}
+
+
+
